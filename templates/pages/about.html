@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}About — BookNest{% endblock title %}
+{% block content %}
+<h1>About BookNest</h1>
+<p class="lead">
+  BookNest is a learning project built with the Django web framework.
+</p>
+<p>
+  It demonstrates the core building blocks of every Django project:
+</p>
+<ul>
+  <li><strong>Models</strong> — books, carts, and orders stored in SQLite</li>
+  <li><strong>Views</strong> — the logic for browsing, adding to cart, and checking out</li>
+  <li><strong>Templates</strong> — the pages you are looking at right now</li>
+  <li><strong>URL dispatcher</strong> — connecting web addresses to views</li>
+  <li><strong>Forms</strong> — validating user input safely</li>
+  <li><strong>Authentication</strong> — sign up, log in, log out</li>
+</ul>
+<p>⚠️ Please do not try to pay with real money. We checked — it does not work.</p>
+{% endblock content %}
