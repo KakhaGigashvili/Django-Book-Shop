@@ -7,7 +7,7 @@
     Your next favorite book is just a click away.
   </p>
   {% if user.is_authenticated %}
-    <a class="btn btn-primary btn-lg" href="{% url 'home' %}">
+    {% comment %} <a class="btn btn-primary btn-lg" href="{% url 'home' %}"> {% endcomment %}
       Browse Books
     </a>
   {% else %}

@@ -25,12 +25,12 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'about' %}">About</a>
           </li>
-          {% if user.is_authenticated %}
+              {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'cart_detail' %}">Cart</a>
+              {% comment %} <a class="nav-link" href="{% url 'cart_detail' %}">Cart</a> {% endcomment %}
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'order_list' %}">My Orders</a>
+              {% comment %} <a class="nav-link" href="{% url 'order_list' %}">My Orders</a> {% endcomment %}
             </li>
           {% endif %}
         </ul>
@@ -44,17 +44,17 @@
                 {% csrf_token %}
                 <button type="submit" class="btn btn-outline-light btn-sm">
                   Log Out
-                </button>
+                </button> 
               </form>
             </li>
           {% else %}
             <li class="nav-item">
-              {% comment %} <a class="nav-link" href="{% url 'login' %}">Log In</a> {% endcomment %}
+               <a class="nav-link" href="{% url 'login' %}">Log In</a> 
             </li>
-            <li class="nav-item">
-              {% comment %} <a class="btn btn-primary btn-sm ms-2" href="{% url 'signup' %}"> {% endcomment %}
+            <li class="nav-item d-flex align-items-center">
+               <a class="btn btn-primary btn-sm ms-2" href="{% url 'signup' %}">
                 Sign Up
-              </a>
+              </a> 
             </li>
           {% endif %}
         </ul>
