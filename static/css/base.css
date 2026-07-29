@@ -10,3 +10,10 @@
     padding: 4rem 0;
     text-align: center;
 }
+
+.book-image {
+    height: 350px;
+    width: 100%;
+    object-fit: contain;
+    background-color: #f8f9fa;
+}

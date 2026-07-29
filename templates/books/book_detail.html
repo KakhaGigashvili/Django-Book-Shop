@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}{{ book.title }} — BookNest{% endblock title %}
+{% block content %}
+<div class="row">
+  <div class="col-md-4">
+    {% if book.image_url %}
+      <img src="{{ book.image_url }}" class="img-fluid rounded" alt="{{ book.title }}">
+    {% endif %}
+  </div>
+  <div class="col-md-8">
+    <h1>{{ book.title }}</h1>
+    <p class="text-muted">by {{ book.author }}</p>
+    <h3 class="text-primary">${{ book.price }}</h3>
+    <p>{{ book.description }}</p>
+    <button class="btn btn-primary btn-lg">Add to Cart</button>
+    <a href="{% url 'book_list' %}" class="btn btn-outline-secondary btn-lg">Back to Books</a>
+  </div>
+</div>
+{% endblock content %}
