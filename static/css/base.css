@@ -16,5 +16,16 @@
     width: 100%;
     object-fit: contain;
     background-color: #f8f9fa;
-    /* justify-content: space-between; */
+}
+
+.browse-books-btn {
+    background: linear-gradient(135deg, #1d3557, #457b9d);
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.browse-books-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(29, 53, 87, 0.4) !important;
+    color: white;
 }

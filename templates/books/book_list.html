@@ -22,8 +22,11 @@
           <div class="mt-auto d-flex gap-2">
             <a href="{% url 'book_detail' book.pk %}" class="btn btn-outline-secondary btn-sm">View Details</a>
             {% if user.is_authenticated %}
-            <button class="btn btn-primary btn-sm">Add to Cart</button>
-            {% endif %}
+              <form method="post" action="{% url 'add_to_cart' book.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-sm">Add to Cart</button>
+              </form>
+              {% endif %}
           </div>
         </div>
       </div>

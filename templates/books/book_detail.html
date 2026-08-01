@@ -4,12 +4,12 @@
 <div class="row">
   <div class="col-md-4">
     {% if book.image_url %}
-      <img src="{{ book.image_url }}" class="img-fluid rounded" alt="{{ book.title }}">
+      <img src="{{ book.image_url }}" class="img-fluid rounded shadow-sm" alt="{{ book.title }}">
     {% endif %}
   </div>
   <div class="col-md-8">
-    <h1>{{ book.title }}</h1>
-    <p class="text-muted">by {{ book.author }}</p>
+    <h1 class="fw-bold">{{ book.title }}</h1>
+    <p class="text-muted fs-5">by {{ book.author }}</p>
 
     {% if book.average_rating %}
       <p class="fs-5">
@@ -26,22 +26,28 @@
       <p class="text-muted">No reviews yet — be the first!</p>
     {% endif %}
 
-    <h3 class="text-primary">${{ book.price }}</h3>
-    <p>{{ book.description }}</p>
-    <button class="btn btn-primary btn-lg">Add to Cart</button>
-    <a href="{% url 'book_list' %}" class="btn btn-outline-secondary btn-lg">Back to Books</a>
+    <h3 class="text-primary fw-bold mb-4">${{ book.price }}</h3>
+    <p class="lh-lg">{{ book.description }}</p>
+
+    <div class="d-flex gap-2 mt-4">
+      <form method="post" action="{% url 'add_to_cart' book.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-lg px-4">🛒 Add to Cart</button>
+      </form>
+      <a href="{% url 'book_list' %}" class="btn btn-outline-secondary btn-lg px-4">← Back to Books</a>
+    </div>
   </div>
 </div>
 
 <hr class="my-5">
 
-<h3>Reviews</h3>
+<h3 class="fw-bold mb-4">Reviews</h3>
 
 {% if user.is_authenticated %}
   {% if not user_has_reviewed %}
-    <div class="card mb-4">
+    <div class="card mb-4 border-0 shadow-sm">
       <div class="card-body">
-        <h5 class="card-title">Leave a Review</h5>
+        <h5 class="card-title mb-3">Leave a Review</h5>
         <form method="post">
           {% csrf_token %}
           <div class="mb-3">
@@ -57,24 +63,28 @@
       </div>
     </div>
   {% else %}
-    <p class="text-muted">You've already reviewed this book. Thank you!</p>
+    <p class="text-muted fst-italic">You've already reviewed this book. Thank you!</p>
   {% endif %}
 {% else %}
   <p><a href="{% url 'login' %}">Log in</a> to leave a review.</p>
 {% endif %}
 
 {% for review in reviews %}
-  <div class="border-bottom pb-3 mb-3">
-    <strong>{{ review.user.username }}</strong>
-    <span class="text-warning">
-      {% for i in "12345" %}
-        {% if forloop.counter <= review.rating %}⭐{% else %}☆{% endif %}
-      {% endfor %}
-    </span>
-    <p class="text-muted small mb-1">{{ review.created_at|date:"F j, Y" }}</p>
-    {% if review.comment %}
-      <p>{{ review.comment }}</p>
-    {% endif %}
+  <div class="card mb-3 border-0 shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-1">
+        <strong>{{ review.user.username }}</strong>
+        <span class="text-warning">
+          {% for i in "12345" %}
+            {% if forloop.counter <= review.rating %}⭐{% else %}☆{% endif %}
+          {% endfor %}
+        </span>
+      </div>
+      <p class="text-muted small mb-2">{{ review.created_at|date:"F j, Y" }}</p>
+      {% if review.comment %}
+        <p class="mb-0">{{ review.comment }}</p>
+      {% endif %}
+    </div>
   </div>
 {% empty %}
   <p class="text-muted">No reviews yet.</p>

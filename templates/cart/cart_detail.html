@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}My Cart — BookNest{% endblock title %}
+{% block content %}
+<h1 class="mb-4">My Cart</h1>
+
+{% if cart.items.all %}
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th>Book</th>
+        <th>Author</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart.items.all %}
+        <tr>
+          <td><a href="{% url 'book_detail' item.book.pk %}" class="text-decoration-none text-dark fw-semibold">
+              {{ item.book.title }}
+            </a></td>
+            <td>{{item.book.author}}</td>
+          <td>${{ item.book.price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>${{ item.subtotal }}</td>
+          <td>
+            <form method="post" action="{% url 'remove_from_cart' item.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-danger btn-sm">Remove</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3 class="text-end">Total: ${{ cart.total_price }}</h3>
+
+  <div class="text-end">
+    <a href="{% url 'book_list' %}" class="btn btn-outline-secondary">Continue Shopping</a>
+    <button class="btn btn-primary">Checkout</button>
+  </div>
+
+{% else %}
+  <p>Your cart is empty.</p>
+  <a href="{% url 'book_list' %}" class="btn btn-primary">Browse Books</a>
+{% endif %}
+
+{% endblock content %}

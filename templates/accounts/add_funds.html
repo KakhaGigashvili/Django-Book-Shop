@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Add Funds — BookNest{% endblock title %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title mb-3">Add Funds to Your Account</h3>
+        <p class="text-muted">Current balance: <strong>${{ user.balance }}</strong></p>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Add Funds</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

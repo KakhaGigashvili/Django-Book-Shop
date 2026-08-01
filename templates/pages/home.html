@@ -6,14 +6,15 @@
   <p class="lead">
     Your next favorite book is just a click away.
   </p>
+
+  <div class="text-center mb-4">
+  <h2 class="fw-light">👋 Welcome back, <span class="text-primary fw-bold">{{ user.username }}</span>!</h2>
+  </div>
+
   {% if user.is_authenticated %}
-    {% comment %} <a class="btn btn-primary btn-lg" href="{% url 'home' %}"> {% endcomment %}
-      Browse Books
-    </a>
-  {% else %}
-    <p>Sign up today and get <strong>free shipping on your first order!</strong></p>
-    {% comment %} <a class="btn btn-primary btn-lg" href="{% url 'signup' %}">Create an Account</a> {% endcomment %}
-    {% comment %} <a class="btn btn-outline-secondary btn-lg" href="{% url 'login' %}">Log In</a> {% endcomment %}
+  <a class="btn btn-lg rounded-pill px-5 py-3 text-white shadow browse-books-btn" href="{% url 'book_list' %}">
+    📚 Browse Books
+  </a>
   {% endif %}
 </div>
 <div class="row text-center">
