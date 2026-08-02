@@ -1,51 +1,66 @@
 {% extends 'base.html' %}
 {% block title %}My Cart — BookNest{% endblock title %}
 {% block content %}
-<h1 class="mb-4">My Cart</h1>
+<h1 class="fw-bold mb-4">🛒 My Cart</h1>
 
 {% if cart.items.all %}
-  <table class="table align-middle">
-    <thead>
-      <tr>
-        <th>Book</th>
-        <th>Author</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Subtotal</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in cart.items.all %}
-        <tr>
-          <td><a href="{% url 'book_detail' item.book.pk %}" class="text-decoration-none text-dark fw-semibold">
-              {{ item.book.title }}
-            </a></td>
-            <td>{{item.book.author}}</td>
-          <td>${{ item.book.price }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>${{ item.subtotal }}</td>
-          <td>
-            <form method="post" action="{% url 'remove_from_cart' item.id %}">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-outline-danger btn-sm">Remove</button>
-            </form>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr class="text-muted small text-uppercase">
+            <th>Book</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart.items.all %}
+            <tr>
+              <td>
+                <a href="{% url 'book_detail' item.book.pk %}" class="text-decoration-none text-dark fw-semibold">
+                  {{ item.book.title }}
+                </a>
+              </td>
+              <td class="text-muted">{{ item.book.author }}</td>
+              <td>${{ item.book.price }}</td>
+              <td>
+                <span class="badge bg-secondary-subtle text-dark px-3 py-2">{{ item.quantity }}</span>
+              </td>
+              <td class="fw-semibold">${{ item.subtotal }}</td>
+              <td>
+                <form method="post" action="{% url 'remove_from_cart' item.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-danger btn-sm">✕ Remove</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-  <h3 class="text-end">Total: ${{ cart.total_price }}</h3>
+  <div class="d-flex justify-content-between align-items-center">
+    <h3 class="fw-bold">Total: <span class="text-primary">${{ cart.total_price }}</span></h3>
+  </div>
 
-  <div class="text-end">
-    <a href="{% url 'book_list' %}" class="btn btn-outline-secondary">Continue Shopping</a>
-    <button class="btn btn-primary">Checkout</button>
+  <div class="d-flex justify-content-end gap-2 mt-3">
+    <a href="{% url 'book_list' %}" class="btn btn-outline-secondary btn-lg">← Continue Shopping</a>
+    <form method="post" action="{% url 'checkout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary btn-lg">✅ Checkout</button>
+    </form>
   </div>
 
 {% else %}
-  <p>Your cart is empty.</p>
-  <a href="{% url 'book_list' %}" class="btn btn-primary">Browse Books</a>
+  <div class="text-center py-5">
+    <p class="fs-4 text-muted">Your cart is empty.</p>
+    <a href="{% url 'book_list' %}" class="btn btn-primary btn-lg mt-2">📖 Browse Books</a>
+  </div>
 {% endif %}
 
 {% endblock content %}
